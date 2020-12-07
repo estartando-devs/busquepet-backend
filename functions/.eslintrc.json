@@ -43,7 +43,7 @@
         "allowEmptyCatch": true
       }
     ],
-    "no-invalid-this": "error",
+    "no-invalid-this": "warn",
     "no-new-wrappers": "error",
     "no-param-reassign": "error",
     "no-redeclare": "error",
