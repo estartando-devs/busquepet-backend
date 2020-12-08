@@ -1,23 +1,25 @@
 import { FirestoreAdapter } from "../adapters/firestore.adapter"
 import { IPet } from "../interfaces/pet"
-import { PetDomain } from "../domain/pet.domain"
+import { Pet } from "../domain/pet"
 
 export class PetController {
   private dbAdapter = new FirestoreAdapter<IPet>()
-  private petDomain = new PetDomain(this.dbAdapter)
+  private pet = new Pet(this.dbAdapter)
 
-  constructor() {
-    this.create = this.create.bind(this)
-    this.getById = this.getById.bind(this)
+  constructor() {}
+
+  async create(_pet: IPet): Promise<IPet | Error> {
+    const pet = await this.pet.save(_pet)
+    return pet
   }
 
-  async create(_pet: IPet): Promise<IPet> {
-    const pet = await this.petDomain.save(_pet)
+  async getAll(): Promise<IPet[] | Error > {
+    const pet = await this.pet.getAll()
     return pet
   }
 
   async getById(petId: string): Promise<IPet | Error > {
-    const pet = await this.petDomain.getById(petId)
+    const pet = await this.pet.getById(petId)
     return pet
   }
 }

@@ -19,8 +19,12 @@ export const pet = https.onRequest(
         response.json(newPet);
         break;
       case "GET":
-        const responseGetPet = await petController.getById(request.params[0])
-        response.json(responseGetPet);
+      const param = request.params[0]
+      if(param !== "/"){
+        response.json(await petController.getById(param))
+        break;
+      }
+        response.json(await petController.getAll());
         break;
       default:
         response.json({

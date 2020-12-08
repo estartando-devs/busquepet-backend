@@ -5,12 +5,31 @@ const basePath = "/root_collection/document";
 
 export class FirestoreAdapter<T> implements IDB<T> {
   async save(path: string, data: T): Promise<T> {
-    await dataBase
-      .firestore()
-      .collection(`${basePath}/${path}`)
-      .add(data)
+    try {
+      await dataBase
+        .firestore()
+        .collection(`${basePath}/${path}`)
+        .add(data)
 
-    return data;
+      return data;
+    } catch (error) {
+      return error
+    }
+  }
+
+  async getAll(path: string): Promise<T[] | Error> {
+    try {
+      const list: T[] = []
+      const query = await dataBase
+        .firestore()
+        .collection(`${basePath}/${path}`)
+        .get()
+
+        query.forEach(snapshot => list.push({...snapshot.data() as T, id: snapshot.id }));
+      return list
+    } catch (error) {
+      return error
+    }
   }
 
   async getById(path: string, id: string): Promise<T | Error> {
