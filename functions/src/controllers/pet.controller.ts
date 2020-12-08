@@ -6,8 +6,6 @@ export class PetController {
   private dbAdapter = new FirestoreAdapter<IPet>()
   private pet = new Pet(this.dbAdapter)
 
-  constructor() {}
-
   async create(_pet: IPet): Promise<IPet | Error> {
     const pet = await this.pet.save(_pet)
     return pet
