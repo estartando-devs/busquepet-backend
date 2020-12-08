@@ -1,23 +1,11 @@
 import { FirestoreAdapter } from "../adapters/firestore.adapter"
+import { Pet } from "../domain/pet.entity"
 import { IPet } from "../interfaces/pet"
-import { Pet } from "../domain/pet"
+import { BaseController } from "./base.controller"
 
-export class PetController {
-  private dbAdapter = new FirestoreAdapter<IPet>()
-  private pet = new Pet(this.dbAdapter)
-
-  async create(_pet: IPet): Promise<IPet | Error> {
-    const pet = await this.pet.save(_pet)
-    return pet
-  }
-
-  async getAll(): Promise<IPet[] | Error > {
-    const pet = await this.pet.getAll()
-    return pet
-  }
-
-  async getById(petId: string): Promise<IPet | Error > {
-    const pet = await this.pet.getById(petId)
-    return pet
+export class PetController extends BaseController<IPet>{
+  constructor(dbAdapter = new FirestoreAdapter<IPet>("pets")){
+    const pet = new Pet(dbAdapter)
+    super(pet)
   }
 }

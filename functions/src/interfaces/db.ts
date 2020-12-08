@@ -1,5 +1,7 @@
 export interface IDB<T> {
-  save: (path: string, data: T) => Promise<T | Error>;
-  getAll: (path: string) => Promise<T[] | Error>;
-  getById: (path: string, id: string) => Promise<T | Error>;
+  save: (data: T) => Promise<T | Error>;
+  getAll: () => Promise<T[] | Error>;
+  getById: (id: string) => Promise<T | Error>;
+  update: (id: string, data: T) => Promise<T | Error>;
+  delete: (id: string) => Promise<string | Error>;
 }

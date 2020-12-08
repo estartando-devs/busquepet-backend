@@ -4,38 +4,41 @@ import * as dataBase from "firebase-admin";
 const basePath = "/root_collection/document";
 
 export class FirestoreAdapter<T> implements IDB<T> {
-  async save(path: string, data: T): Promise<T> {
+  constructor(private path: string) {}
+  async save(data: T): Promise<T> {
     try {
       await dataBase
         .firestore()
-        .collection(`${basePath}/${path}`)
-        .add(data)
+        .collection(`${basePath}/${this.path}`)
+        .add(data);
 
       return data;
     } catch (error) {
-      return error
+      return error;
     }
   }
 
-  async getAll(path: string): Promise<T[] | Error> {
+  async getAll(): Promise<T[] | Error> {
     try {
-      const list: T[] = []
+      const list: T[] = [];
       const query = await dataBase
         .firestore()
-        .collection(`${basePath}/${path}`)
-        .get()
+        .collection(`${basePath}/${this.path}`)
+        .get();
 
-        query.forEach(snapshot => list.push({...snapshot.data() as T, id: snapshot.id }));
-      return list
+      query.forEach((snapshot) =>
+        list.push({ ...(snapshot.data() as T), id: snapshot.id })
+      );
+      return list;
     } catch (error) {
-      return error
+      return error;
     }
   }
 
-  async getById(path: string, id: string): Promise<T | Error> {
+  async getById(id: string): Promise<T | Error> {
     const data: T | Error = await dataBase
       .firestore()
-      .collection(`${basePath}/${path}`)
+      .collection(`${basePath}/${this.path}`)
       .doc(id)
       .get()
       .then((snapshot) => {
@@ -48,13 +51,22 @@ export class FirestoreAdapter<T> implements IDB<T> {
     return data;
   }
 
-  async update(path: string, id: string, newData: T): Promise<T | void> {
+  async update(id: string, newData: T): Promise<T | Error> {
     await dataBase
       .firestore()
-      .collection(`${basePath}/${path}`)
+      .collection(`${basePath}/${this.path}`)
       .doc(id)
-      .update(newData)
+      .update(newData);
 
     return newData;
+  }
+
+  async delete(id: string): Promise<string | Error> {
+    await dataBase
+      .firestore()
+      .collection(`${basePath}/${this.path}`)
+      .doc(id)
+      .delete();
+    return id;
   }
 }
