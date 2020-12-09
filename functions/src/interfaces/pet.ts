@@ -9,6 +9,8 @@ export interface IPet {
   specie: Species
   genre: Genre
   age: string
+  images?: string[]
+  description?: string
   size?: Size
   location?: ILocation
 }
