@@ -1,4 +1,4 @@
-import { ILocation } from "./adress"
+import { ILocation } from "./adress";
 
 type Species = "cat" | "dog"
 type Genre = "male" | "female"

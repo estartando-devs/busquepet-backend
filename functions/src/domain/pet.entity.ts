@@ -4,6 +4,6 @@ import { BaseEntity } from "./base.entity";
 
 export class Pet extends BaseEntity<IPet>{
   constructor(db: IDB<IPet>) {
-    super(db)
+    super(db);
   }
 }

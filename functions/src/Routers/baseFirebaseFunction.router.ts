@@ -1,5 +1,5 @@
 import { Request, Response } from "firebase-functions";
-import { IDB } from "../interfaces/db"
+import { IDB } from "../interfaces/db";
 
 export class BaseFirebaseFunctionRouter<T> {
   constructor (private controller: IDB<T>) {}

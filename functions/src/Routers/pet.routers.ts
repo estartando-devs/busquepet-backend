@@ -4,6 +4,6 @@ import { IPet } from "../interfaces/pet";
 
 export class PetRouters extends BaseFirebaseFunctionRouter<IPet> {
   constructor(petController = new PetController()) {
-    super(petController)
+    super(petController);
   }
 }

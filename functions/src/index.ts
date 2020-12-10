@@ -11,12 +11,12 @@ const userRouters = new UserRouters();
 
 export const user = https.onRequest(
   async (request: Request, response: Response): Promise<void> => {
-    await userRouters.execute(request, response)
+    await userRouters.execute(request, response);
   }
 );
 
 export const pet = https.onRequest(
   async (request: Request, response: Response): Promise<void> => {
-    await petRouters.execute(request, response)
+    await petRouters.execute(request, response);
   }
 );

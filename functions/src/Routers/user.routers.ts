@@ -4,6 +4,6 @@ import { IUser } from "../interfaces/user";
 
 export class UserRouters extends BaseFirebaseFunctionRouter<IUser> {
   constructor(userController = new UserController()) {
-    super(userController)
+    super(userController);
   }
 }
