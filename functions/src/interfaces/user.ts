@@ -1,9 +1,9 @@
-import { IAdress } from "./adress";
+import { IAddress } from "./address";
 
 export interface IUser {
-  name: string
-  dateBirth: Date
-  email?: string
-  imgSrc?: string
-  adress?: IAdress
+  name: string;
+  dateBirth: Date;
+  email?: string;
+  imgSrc?: string;
+  address?: IAddress;
 }
