@@ -9,6 +9,10 @@ export class BaseFirebaseFunctionRouter<T> {
     const { body, params } = request;
     const id = params[0];
 
+    response.set('Access-Control-Allow-Origin', '*');
+    response.set('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS');
+    response.set('Access-Control-Allow-Headers', '*');
+
     switch (request.method) {
       case "DELETE":
         obj = await this.controller.delete(id);
